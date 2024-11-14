@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 398850d2c4044014ab4dc91085e7efa9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - AudioMixer: {instanceID: 0}
+  - DisplayScreenTheme: {instanceID: 0}
+  - PlaySource: {instanceID: 0}
+  - VolumeOn: {fileID: 2800000, guid: a15e7954f7aae2d419fda9cde8553d68, type: 3}
+  - VolumeOff: {fileID: 2800000, guid: 90c9bda14c7af254a9919ab5695c9723, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
