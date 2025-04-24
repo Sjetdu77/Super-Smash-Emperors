@@ -1,6 +1,7 @@
 using ProjectTools;
 using System;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,6 +30,8 @@ public class SaveLoadData : MonoBehaviour
         string FilePath = $"{Application.persistentDataPath}/History.json";
         if (File.Exists(FilePath))
             History = JsonUtility.FromJson<History>(File.ReadAllText(FilePath));
+
+        Debug.Log(Application.persistentDataPath);
     }
 
     private void Update()
@@ -53,7 +56,7 @@ public class SaveLoadData : MonoBehaviour
         }
     }
 
-    public void SaveToJson()
+    public void SaveGridToJson()
     {
         var ActualGrid = GridGestion.instance.ActualGrid;
         var ExportGrid = new ExportGrid(ActualGrid);
@@ -61,12 +64,21 @@ public class SaveLoadData : MonoBehaviour
         File.WriteAllText($"{Application.persistentDataPath}/History.json", JsonUtility.ToJson(History));
     }
 
-    public void LoadFromJson()
+    public void LoadGridFromJson()
     {
         string FilePath = $"{Application.persistentDataPath}/History.json";
         History = JsonUtility.FromJson<History>(File.ReadAllText(FilePath));
-        var Battle = History.Count;
+        var Battle = History.Keys.Max();
         GridGestion.instance.CreateGrid(new FighterGrid(History[Battle], Battle));
+    }
+
+    public void LoadWorldFromJson(Roster Roster)
+    {
+        var JsonLoaded = Resources.Load<TextAsset>($"DefaultGrids/{Roster}");
+        var Grid = JsonUtility.FromJson<FixedGrid>(JsonLoaded.text);
+        History = new();
+        GridGestion.instance.CreateGrid(new FighterGrid(Grid, Roster));
+        SaveGridToJson();
     }
 
     public void Return()
@@ -90,8 +102,10 @@ public class SaveLoadData : MonoBehaviour
 [Serializable]
 public class ExportGrid : SerializableDictionary<int, ExportYGrid>
 {
+    public string Roster;
     public ExportGrid(FighterGrid Grid)
     {
+        Roster = Grid.Roster.ToString();
         foreach (var XItem in Grid)
         {
             ExportYGrid Y = new();
@@ -110,3 +124,20 @@ public class ExportYGrid : SerializableDictionary<int, int[]> { }
 
 [Serializable]
 public class History : SerializableDictionary<int, ExportGrid> { }
+
+[Serializable]
+public class FixedYGrid : SerializableDictionary<int, int> { }
+
+[Serializable]
+public class FixedGrid : SerializableDictionary<int, FixedYGrid>
+{
+    public FixedGrid(int[][] Grid)
+    {
+        for (int i = 0; i < Grid.Length; i++)
+        {
+            FixedYGrid Y = new();
+            for (int j = 0; j < Grid[i].Length; j++) Y.Add(j, Grid[i][j]);
+            Add(i, Y);
+        }
+    }
+}

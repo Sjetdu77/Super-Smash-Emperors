@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6482111305229076479}
   - component: {fileID: 3552937587213903037}
   - component: {fileID: 4228873672553632870}
-  - component: {fileID: 9127644786473410418}
+  - component: {fileID: 945886372651956580}
   m_Layer: 0
   m_Name: Grid
   m_TagString: GridGestion
@@ -67,7 +67,7 @@ MonoBehaviour:
     FallenFighters: []
     FightersInQuest: []
   O: {x: 0, y: 0}
---- !u!114 &9127644786473410418
+--- !u!114 &945886372651956580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

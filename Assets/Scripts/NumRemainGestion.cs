@@ -5,7 +5,6 @@ public enum BattleType
 {
     Awakening,
     Expansion,
-    Siege,
     Decisive,
     Conquest,
     Revolution

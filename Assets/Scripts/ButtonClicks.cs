@@ -23,25 +23,11 @@ public class ButtonClicks : MonoBehaviour
         else ContinueButton.interactable = false;
     }
 
-    private void OnClickGrid(Mode Mode)
-    {
-        OrganizationTable TableInstance = OrganizationTable.instance;
-        TableInstance.CreateNewGrid(Mode);
-        SceneManager.LoadScene("World");
-        TableInstance.gameObject.SetActive(true);
-    }
+    public void OnClickContinueButton() => OrganizationTable.instance.OnClickContinueGrid();
 
-    public void OnClickContinue() => OnClickGrid(Mode.Continue);
+    public void OnClickRandomButton() => SceneManager.LoadScene("ChooseRandom");
 
-    public void OnClickStartRandomDefault() => OnClickGrid(Mode.RandomDefault);
-
-    public void OnClickStartRandomEcho() => OnClickGrid(Mode.RandomEcho);
-
-    public void OnClickStartFixedDefault() => OnClickGrid(Mode.FixedDefault);
-
-    public void OnClickStartFixedEcho() => OnClickGrid(Mode.FixedEcho);
-
-    public void OnClickStartFixedClassic() => OnClickGrid(Mode.FixedClassic);
+    public void OnClickFixedButton() => SceneManager.LoadScene("ChooseFixed");
 
     public void OnClickQuitButton() => Application.Quit();
 }

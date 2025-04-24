@@ -39,12 +39,18 @@ public class Fighter
     public int Id;
     public string Name;
     public Color Color;
-    public float LoopStart, LoopStop;
+
+    public bool in64;
+    public bool inMelee;
+    public bool inBrawl;
+    public bool inSmash4;
+
+    public bool isDLCSmash4;
+    public bool isDLCUltimate;
 
     private Sprite Announcements = null;
     private Sprite Belongings = null;
     private Sprite ShowSprite = null;
-    private AudioClip VictoryTheme = null;
 
     private TerritoryBehaviour Core = null;
 
@@ -69,13 +75,14 @@ public class Fighter
         return ResA;
     }
 
+    public override string ToString() { return Name; }
+
     public void AddSprites()
     {
         var Path = $"Fighters/{Name}";
         Announcements = Resources.Load<Sprite>($"{Path}/Announcement");
         Belongings = Resources.Load<Sprite>($"{Path}/Belongings");
         ShowSprite = Resources.Load<Sprite>($"{Path}/ShowSprite");
-        VictoryTheme = Resources.Load<AudioClip>($"{Path}/Victory");
     }
 
     public void SetCore(TerritoryBehaviour Behaviour) { Core = Behaviour; }
@@ -83,8 +90,6 @@ public class Fighter
     public TerritoryBehaviour GetCore() => Core;
 
     public void ChangePossessor(Fighter Conqueror) => Core.ChangeSprites(Conqueror);
-
-    public AudioClip PlayVictory() => VictoryTheme;
 
     public Sprite GetAnnouncements() => Announcements;
     public Sprite GetBelongings() => Belongings;
